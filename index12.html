@@ -1,0 +1,100 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>My Page</title> 
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.css" />
+	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.js"></script>
+
+</head> 
+<body> 
+
+<div data-role="page" data-fullscreen="true">
+
+
+	<canvas id="myCanvas"></canvas>
+	<div data-role="content">
+		
+
+
+		<audio autoplay autoloop loop >
+			<source src="http://music.huoxing.com/upload/20121215/1355575227640_8200.mp3">
+		</audio>
+	</div>
+   		
+	<div data-role="footer" data-theme="c" data-position="fixed" id="id_fix_toolbar">		
+		<fieldset class="ui-grid-c">
+			<div class="ui-block-a"><button type="submit" data-theme="c"  value='' id="id_bt_stop">踩</button></div>
+			<div class="ui-block-b"></div>	   
+	
+				
+			<div class = "ui-block-c">
+				<a href="http://music.huoxing.com/upload/20121215/1355575227640_8200.mp3" data-role="button" data-theme="b">下载</a>
+			</div>
+			
+			<div class="ui-block-d"><button type="submit" data-theme=""  id="id_bt_start">顶</button></div>	 
+			
+		</fieldset>
+	</div><!-- /footer -->
+
+</div><!-- /page -->
+	
+	<script>
+
+			canvas_show()
+
+			regist_bt_action();
+
+			$("#id_fix_toolbar").fixedtoolbar("show")
+
+			function canvas_show () {
+
+				var width = $(window).width()
+      			var height = $(window).height()
+      			var canvas = document.getElementById('myCanvas');
+      			canvas.width = width
+      			canvas.height = height*0.6
+      		
+      			console.log("width: "+width+" height: "+height);
+
+      			var context = canvas.getContext('2d');
+      			var imageObj = new Image();
+
+      			imageObj.onload = function() {
+        			context.drawImage(imageObj, 0, 0,width,height);
+      			};
+      			imageObj.src = 'http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg';
+			}
+   			
+   			function regist_bt_action () {
+   				
+   				$("#id_bt_start").click(function  () {
+					
+					$("#id_bt_start").button("disable")
+					$("#id_bt_stop").button("disable")
+
+					$("#id_bt_stop").jmqData("value","shit")
+					report_user_guandian();
+				})
+
+				$("#id_bt_stop").click(function  () {
+					$("#id_bt_stop").button("disable")
+					$("#id_bt_start").button("disable")
+
+					report_user_guandian();
+				})
+   			}
+
+   			function report_user_guandian () {
+   				console.log("report_user_guandian is called");
+   			}
+
+
+		
+
+    </script>
+</body>
+</html>
