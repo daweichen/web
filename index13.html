@@ -130,8 +130,8 @@
                 var ttime = audio.duration
                 var curtime = audio.currentTime
               
-
-                document.getElementById("time_progress").innerHTML= "<center>" + timeDispose(curtime) +" -- "+ timeDispose(ttime)+ "</center>"  
+		document.getElementById("time_progress").innerHTML= "<center style=\"color:green\">" + timeDispose(curtime) +" -- "+ timeDispose(ttime)+ "</center>"  
+                
             }
 
             timeId = setInterval(updator,2000)
