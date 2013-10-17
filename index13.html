@@ -1,0 +1,140 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>My Page</title> 
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.css" />
+	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.js"></script>
+
+</head> 
+<body> 
+
+<div data-role="page">
+
+	<canvas id="myCanvas"></canvas>
+
+	<div data-role="content">
+	
+		<ul data-role='listview' data-inset='true'>
+		<li data-theme='c' id="time_progress"> <center> 00:50 || 01:34 </center></li>
+		<li data-theme='c'>
+			<p style="color:green"> <center style="color:green">忘情水-刘德华</center> </p>
+		</li>
+		
+		</ul>
+
+		<audio autoplay autoloop loop id="myAudio">
+			<source src="http://music.huoxing.com/upload/20121215/1355575227640_8200.mp3">
+		</audio>
+	</div>
+   		
+	<div data-role="footer" data-theme="c" data-position="fixed" id="id_fix_toolbar">		
+		<fieldset class="ui-grid-c">
+			<div class="ui-block-a"><button type="submit" data-theme="c"  value='' id="id_bt_stop">踩</button></div>
+			<div class="ui-block-b"></div>	   
+	
+				
+			<div class = "ui-block-c">
+				<a href="http://music.huoxing.com/upload/20121215/1355575227640_8200.mp3" data-role="button" data-theme="b">下载</a>
+			</div>
+			
+			<div class="ui-block-d"><button type="submit" data-theme=""  id="id_bt_start">顶</button></div>	 
+			
+		</fieldset>
+	</div><!-- /footer -->
+
+</div><!-- /page -->
+	
+	<script>
+
+			canvas_show()
+
+			regist_bt_action();
+
+			
+
+			function canvas_show () {
+
+				var width = $(window).width()
+      			var height = $(window).height()
+      			var canvas = document.getElementById('myCanvas');
+      			canvas.width = width
+      			canvas.height = height*0.6
+      		
+      			console.log("width: "+width+" height: "+height);
+
+      			var context = canvas.getContext('2d');
+      			var imageObj = new Image();
+
+      			imageObj.onload = function() {
+        			context.drawImage(imageObj, 0, 0,width,height);
+      			};
+      			imageObj.src = 'http://img3.douban.com/lpic/s9074672.jpg';
+			}
+   			
+   			function regist_bt_action () {
+   				
+   				$("#id_bt_start").click(function  () {
+					
+					$("#id_bt_start").button("disable")
+					$("#id_bt_stop").button("disable")
+
+					report_user_guandian();
+				})
+
+				$("#id_bt_stop").click(function  () {
+					$("#id_bt_stop").button("disable")
+					$("#id_bt_start").button("disable")
+
+					report_user_guandian();
+				})
+   			}
+
+   			function report_user_guandian () {
+   				console.log("report_user_guandian is called");
+   			}
+
+   			 var audio = document.getElementById("myAudio")
+            var total_time = audio.duration
+            var cur_time = audio.currentTime 
+
+            console.log("ttime: ",total_time)
+            console.log("curtime: ",cur_time)
+            
+            var progress_percent = cur_time/total_time
+            audio.play()
+
+
+            function timeDispose(number) {
+  
+                var minute = parseInt(number / 60);
+         
+                var second = parseInt(number % 60);
+ 
+                minute = minute >= 10 ? minute : "0" + minute;
+ 
+                second = second >= 10 ? second : "0" + second;
+ 
+                return minute + ":" + second;
+
+            }
+
+            function updator (argument) {
+                
+                console.log("updator is called ")
+
+                var audio = document.getElementById("myAudio")
+                var ttime = audio.duration
+                var curtime = audio.currentTime
+              
+
+                document.getElementById("time_progress").innerHTML= "<center>" + timeDispose(curtime) +" -- "+ timeDispose(ttime)+ "</center>"  
+            }
+
+            timeId = setInterval(updator,2000)
+    </script>
+</body>
+</html>
